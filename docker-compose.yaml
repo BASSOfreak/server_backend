@@ -5,3 +5,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:80:80"
+    volumes:
+      - user_db:/etc/data
+
+volumes:
+  user_db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/basso/Python/server_backend/user_db # must be the absolute host path and already exist
