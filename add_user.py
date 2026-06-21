@@ -16,6 +16,6 @@ with sqlite3.connect("user_db/user_db.db") as connection:
     """)
     cur.execute(f"""
         INSERT INTO users (username, password)
-        VALUES ('{username}', '{hashed_password}');
-    """)
+        VALUES (?, ?);
+    """, [username, hashed_password])
     connection.commit()
