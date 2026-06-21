@@ -1,1 +1,3 @@
 .venv/
+user_db/
+user_db/user_db.db

@@ -40,9 +40,6 @@ class TokenData(BaseModel):
 
 class User(BaseModel):
     username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
 
 
 class UserInDB(User):
@@ -67,9 +64,14 @@ def get_password_hash(password):
 
 
 def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+    cur = user_db_con.cursor()
+    res = cur.execute("""
+        SELECT username, password FROM users WHERE username = ?;
+    """, [username])
+    row = res.fetchone()
+    if not row is None:
+        found_username, password_hashed = row
+        return UserInDB(found_username, password_hashed)
 
 
 def authenticate_user(fake_db, username: str, password: str):
