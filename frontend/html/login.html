@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+async function login() {
+    var user = prompt("Enter Username");
+    var pass = prompt("Enter Password");
+    myBody = `grant_type=password&username=${user}&password=${pass}&scope=&client_id=string&client_secret=string`;
+    console.log(`body: ${myBody}`);
+    const response = await fetch('http://localhost/token', {
+        method: 'POST',
+        body: myBody, // string or object
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'accept': 'application/json'
+        }
+    });
+    console.log("finsihed making request");
+    console.log(response.json());
+    // do something with myJson
+}
+</script> 
+<div id="login">
+  Please login. <a href="#" onclick="return login();">Login</a>
+</div>
+<div id="welcome">
+  Welcome <span id="loggedInUser"></span>
+</div>
+
+
+
+</body>
+</html>
+

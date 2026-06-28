@@ -8,6 +8,9 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -43,6 +46,19 @@ DUMMY_HASH = password_hash.hash("dummypassword")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
+
+origins = [
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 def verify_password(plain_password, hashed_password):
