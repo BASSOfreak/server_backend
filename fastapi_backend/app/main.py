@@ -45,7 +45,9 @@ DUMMY_HASH = password_hash.hash("dummypassword")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-app = FastAPI()
+app = FastAPI(
+    root_path="/servertest/"
+)
 
 origins = [
     "*",

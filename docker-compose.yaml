@@ -11,7 +11,7 @@ services:
       context: ./fastapi_backend
       dockerfile: Dockerfile
     ports:
-      - "127.0.0.1:81:80"
+      - "127.0.0.1:81:81"
     volumes:
       - user_db:/etc/data
 
