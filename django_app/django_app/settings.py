@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "djangoapp",
     "localhost",
+    "bassosbastion.fyi",
     # "http://localhost",
 ]
 
