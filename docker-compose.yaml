@@ -1,11 +1,11 @@
 services:
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #     dockerfile: Dockerfile
-  #   container_name: nginx
-  #   ports: 
-  #     - 80:80    
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports: 
+      - 80:80    
   backend:
     build: 
       context: ./fastapi_backend
