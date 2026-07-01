@@ -2,7 +2,7 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: nginx
     ports:
       - 443:443
