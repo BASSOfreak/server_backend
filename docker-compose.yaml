@@ -1,11 +1,11 @@
 services:
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx
-    ports: 
-      - 80:80    
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
+  #   container_name: nginx
+  #   ports: 
+  #     - 80:80    
   backend:
     build: 
       context: ./fastapi_backend
@@ -21,7 +21,7 @@ services:
     container_name: djangoapp
     ports:
       - "127.0.0.1:8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./django_app/:/usr/src/app/
 
