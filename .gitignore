@@ -3,3 +3,4 @@ user_db/
 user_db/user_db.db
 
 *.pyc
+.env
