@@ -11,6 +11,12 @@ services:
       - type: bind
         source: /etc/letsencrypt/
         target: /etc/letsencrypt/
+      - static_volume:/home/app/web/staticfiles
   djangoapp:
     build:
       dockerfile: Dockerfile.prod
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+
+volumes:
+  static_volume:
