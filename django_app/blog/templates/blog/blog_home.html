@@ -1,19 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>BASSOs Blog</title>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-
-    </head>    
-	<h1>BASSOs Bastion</h1>	
-	<h2>Blog</h2>
-    <h3>Existing Entries</h3>
-    {%for post in posts%}
-        <article>
-            <h4><a href="">{{post.title}}</a></h4>
-            <p>{{post.created_date}}</p>
-        </article>
-    {%endfor%}
-
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div>
+        <h3>Existing Entries</h3>
+        {%for post in posts%}
+            <article>
+                <h4><a href="{% url 'blog_entry' pk=post.pk %}">{{post.title}}</a></h4>
+                <p>{{post.created_date}}</p>
+            </article>
+        {%endfor%}
+    </div>
+{% endblock %}
