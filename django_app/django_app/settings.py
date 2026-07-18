@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'blog',
+    'teatracker',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,10 @@ CSRF_TRUSTED_ORIGINS = ["https://bassosbastion.fyi"]
 
 STATIC_URL = 'django/static/'
 STATIC_ROOT = "/django/staticfiles"
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+}

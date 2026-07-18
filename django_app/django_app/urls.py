@@ -20,7 +20,7 @@ import blog.views as views_blog
 urlpatterns = [
     path('django/admin/', admin.site.urls),
     path('django/blog/', include('blog.urls')),
-
+    path('django/teatracker/', include('teatracker.urls')),
     # path('django/blog/', views_blog.blog_home),
     # path('django/blog/', views_blog.blog_entry),
 ]
