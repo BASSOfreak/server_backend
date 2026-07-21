@@ -1,0 +1,19 @@
+{% extends 'teatracker/base.html' %}
+{% block content %}
+    {%for location in locations%}
+        <a href="{% url 'new_entry_items' location_id=location.id%}">
+            {{ location.name }}
+        </a></br>
+
+    {%endfor%}
+    <div>
+        <h2>Create new Location</h2>
+        
+        <form method="POST" class="location-form">{% csrf_token %}
+            {{ location_form.as_p }}
+            <button type="submit" class="save btn btn-secondary">Create</button>
+        </form>
+    </div>
+
+    
+{% endblock %}
