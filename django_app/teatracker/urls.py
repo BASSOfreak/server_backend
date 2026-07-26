@@ -7,6 +7,8 @@ urlpatterns = [
     path('entry_overview/', views.entry_overview, name="entry_overview"),
     path('new_entry_location/', views.new_entry_location, name="new_entry_location"),
     path('new_entry_items/<int:location_id>', views.new_entry_items, name="new_entry_items"),
+    path('entry_form/', views.entry_form, name="entry_form"),
+    path('post_entry/<int:location_id>/', views.post_entry, name="post_entry"),
     path('items/', views.ItemsView.as_view(), name='items'),
     path('locations/', views.LocationsView.as_view(), name='locations'),
 ]

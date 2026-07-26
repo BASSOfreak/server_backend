@@ -1,0 +1,19 @@
+{% extends 'teatracker/base.html' %}
+{% block content %}
+    <div>
+        <h2>Select Items</h2>
+        
+    </div>
+    <div>
+        <p>Location_id: {{location_id}}</p>
+        <form action="{% url 'post_entry' location_id=location_id%}" method="POST" class="entry-form">{% csrf_token %}
+            {{ entry_form.as_p }}
+            <button type="submit" class="save btn btn-secondary">Create Entry</button>
+        </form>
+        
+        <form action="{% url 'new_entry_items' location_id=location_id%}" method="POST" class="item-form">{% csrf_token %}
+            {{ item_form.as_p }}
+            <button type="submit" class="save btn btn-secondary">Create Item</button>
+        </form>
+    </div>
+{% endblock %}

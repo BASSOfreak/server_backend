@@ -1,0 +1,13 @@
+{% extends 'teatracker/base.html' %}
+{% block content %}
+    <div>
+        <h2>Create new entry</h2>
+        
+        <form method="POST" class="entry-form">{% csrf_token %}
+            {{ entry_form.as_p }}
+            <button type="submit" class="save btn btn-secondary">Create</button>
+        </form>
+    </div>
+
+    
+{% endblock %}

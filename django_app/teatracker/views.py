@@ -1,9 +1,15 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Item, Entry, Location
 from .serializers import ItemSerializer, LocationSerializer
-from .forms import LocationForm
+from .forms import (
+    LocationForm, 
+    EntryForm, 
+    EntryForLocationForm, 
+    ItemForLocationForm,
+)
 
 def main(request):
     return render(request, "teatracker/main.html")
@@ -21,10 +27,10 @@ def new_entry_location(request):
     if request.method == "POST":
         form = LocationForm(request.POST)
         if form.is_valid():
-            location = form.save(commit=False)
+            location = form.save()
             # post.author = request.user
             # post.published_date = timezone.now()
-            location.save()
+            # location.save()
             # return redirect('post_detail', pk=post.pk)
     
     location_form = LocationForm()
@@ -38,9 +44,57 @@ def new_entry_location(request):
     )
 
 def new_entry_items(request, location_id):
+    print(f"location_id in 'new_entry_items': {location_id}")
+    if request.method == "POST":
+        form = ItemForLocationForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.location = Location.objects.filter(id = location_id)[0]
+            item.save()
     items = Item.objects.filter(location__id = location_id)
-    return render(request, "teatracker/new_entry_items.html", {"items": items})
+    item_form = ItemForLocationForm()
+    entry_form = EntryForLocationForm()
+    return render(
+        request,
+        "teatracker/new_entry_items.html",
+        {
+            "item_form": item_form, 
+            "entry_form": entry_form, 
+            "location_id": location_id
+        }
+    )
 
+def post_entry(request, location_id):
+    if request.method == "POST":
+        form.EntryForLocationForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.location = Location.objects.filter(id = location_id)
+            entry.created_date = timezone.now()
+            entry.save()
+            return render(
+                request,
+                "teatracker/created_entry.html",
+                {"entry": entry}
+            )
+    return render(request, "teatracker/entry_not_created.html")
+
+def entry_form(request):
+    if request.method == "POST":
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.created_date = timezone.now()
+            entry.save()
+
+    entry_form = EntryForm()
+    return render(
+        request,
+        "teatracker/entry_form.html",
+        {
+            "entry_form": entry_form,
+        }
+    )
 class ItemsView(APIView):
     def get(self, request):
         location_id = request.query_params.get('location_id')

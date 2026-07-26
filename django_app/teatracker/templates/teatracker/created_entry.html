@@ -1,0 +1,15 @@
+{% extends 'teatracker/base.html' %}
+{% block content %}
+    <h3>Created Entry</h3>
+    <p>
+        visited location: {{entry.location.name}}<br>
+        on: {{entry.created_date}}<br>
+        consumed items:
+        <ul>
+            {%for item in entry.items.all%}
+            <li>{{item.name}}</li>
+            {%endfor%}
+        </ul>
+    </p>
+    {%endfor%}
+{% endblock %}
