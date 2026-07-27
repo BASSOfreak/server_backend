@@ -4,3 +4,5 @@ user_db/user_db.db
 
 *.pyc
 .env
+
+django_app/db.sqlite3
