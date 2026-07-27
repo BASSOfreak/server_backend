@@ -10,10 +10,13 @@ from .forms import (
     EntryForLocationForm, 
     ItemForLocationForm,
 )
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def main(request):
     return render(request, "teatracker/main.html")
 
+@login_required
 def entry_overview(request):
     entries = Entry.objects.all()
     return render(request, "teatracker/entry_overview.html", {"entries": entries})
@@ -22,6 +25,7 @@ def entry_overview(request):
 #     items = None# load all items
 #     return render(request, 'blog/blog_home.html', {"posts": posts})
 
+@login_required
 def new_entry_location(request):
     locations = Location.objects.all()
     if request.method == "POST":
@@ -43,6 +47,7 @@ def new_entry_location(request):
         }
     )
 
+@login_required
 def new_entry_items(request, location_id):
     print(f"location_id in 'new_entry_items': {location_id}")
     if request.method == "POST":
@@ -54,6 +59,7 @@ def new_entry_items(request, location_id):
     items = Item.objects.filter(location__id = location_id)
     item_form = ItemForLocationForm()
     entry_form = EntryForLocationForm()
+    entry_form.fields["items"].queryset = Item.objects.filter(location__id = location_id)
     return render(
         request,
         "teatracker/new_entry_items.html",
@@ -64,14 +70,20 @@ def new_entry_items(request, location_id):
         }
     )
 
+@login_required
 def post_entry(request, location_id):
     if request.method == "POST":
-        form.EntryForLocationForm(request.POST)
+        print(request.POST["items"])
+        print("handling POST for 'post_entry'")
+        form = EntryForLocationForm(request.POST)
+        print(form)
         if form.is_valid():
             entry = form.save(commit=False)
-            entry.location = Location.objects.filter(id = location_id)
+            entry.location = Location.objects.filter(id = location_id)[0]
             entry.created_date = timezone.now()
+            print(f"items of entry in 'post_entry': {entry}")
             entry.save()
+            form.save_m2m()
             return render(
                 request,
                 "teatracker/created_entry.html",
@@ -79,6 +91,7 @@ def post_entry(request, location_id):
             )
     return render(request, "teatracker/entry_not_created.html")
 
+@login_required
 def entry_form(request):
     if request.method == "POST":
         form = EntryForm(request.POST)
@@ -95,41 +108,3 @@ def entry_form(request):
             "entry_form": entry_form,
         }
     )
-class ItemsView(APIView):
-    def get(self, request):
-        location_id = request.query_params.get('location_id')
-        print("location_id: " + str(location_id))
-        items = None
-        if location_id:
-            items = Item.objects.filter(location__id = location_id)
-        else:
-            items = Item.objects.all()
-        serializer = ItemSerializer(items, many=True)
-        return Response(serializer.data)
-
-
-    def post(self, request):
-        serializer = ItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-class LocationsView(APIView):
-    def get(self, request):
-        location_id = request.query_params.get('location_id')
-        if location_id:
-            location = Location.objects.filter(id = location_id)
-            serializer = LocationSerializer(location, many=True)
-            return Response(serializer.data)
-        else:
-            locations = Location.objects.all()
-            serializer = LocationSerializer(locations, many=True)
-            return Response(serializer.data)
-
-    def post(self, request):
-        serializer = LocationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
