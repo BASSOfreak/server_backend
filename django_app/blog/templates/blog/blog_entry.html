@@ -1,9 +1,9 @@
 {% extends 'blog/base.html' %}
 {% block content %}
     <div>
-        <h3>{{ post.title }}</h3>
-        <p>Created: <time>{{ post.created_date }}</time></p>
-        <p>Last update: <time>{{ post.last_updated_date }}</time></p>
-        <p>{{ post.text|safe|urlize }}</p>
+        <h3 class="blog_title">{{ post.title }}</h3>
+        <p class="blog_time">Created: <time>{{ post.created_date }}</time></p>
+        <p class="blog_time">Last update: <time>{{ post.last_updated_date }}</time></p>
+        <p class="blog_para">{{ post.text|safe|urlize }}</p>
     </div>
 {% endblock %}
