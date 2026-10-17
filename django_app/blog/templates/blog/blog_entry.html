@@ -4,6 +4,11 @@
         <h3 class="blog_title">{{ post.title }}</h3>
         <p class="blog_time">Created: <time>{{ post.created_date }}</time></p>
         <p class="blog_time">Last update: <time>{{ post.last_updated_date }}</time></p>
-        <p class="blog_para">{{ post.text|safe|urlize }}</p>
+    </div>
+    <div>
+        {% autoescape off %}
+        {% load markdown_filter %}
+            {{ post.text|markdownify }}
+        {% endautoescape %}
     </div>
 {% endblock %}
