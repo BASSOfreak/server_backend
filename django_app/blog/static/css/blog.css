@@ -17,6 +17,11 @@ body {
   text-align: center;
 }
 
+#main_site_heading {
+  background-color: rgb(32, 43, 92);
+  border-radius: 10px;
+}
+
 a:link {
   color: red;
 }
@@ -34,4 +39,9 @@ a:hover {
 /* selected link */
 a:active {
   color: blue;
+}
+
+.website_head a {
+  color: whitesmoke;
+  text-decoration: none;
 }
