@@ -1,20 +1,20 @@
 h1, h2, h3, h4 {
-    color: #313131;
+  color: #313131;
 }
 body {
-    background-color: bisque;
-    display: grid;
-    align-items: center;
-    justify-content: center;
+  background-color: bisque;
+  width: 80%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.blog_title, .blog_para {
-    max-width: 50%;
-    margin: 0 auto;
+
+.website_head h1, .website_head h2, .website_head h3, .website_head p {
+  text-align: center;
 }
-.blog_time {
-    max-width: 50%;
-    margin: 0 auto;
-    font-size: small;
+
+.blog_head h1, .blog_head h2, .blog_head h3, .blog_head p {
+  text-align: center;
 }
 
 a:link {

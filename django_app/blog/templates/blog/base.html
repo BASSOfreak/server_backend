@@ -2,14 +2,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>BASSOs Bastion</title>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
         <link rel="icon" href="https://bassosbastion.fyi/favicon-16x16.png">
+    </head>   
+    <body>
+        <div class="website_head">
+            <h1><a href="https://bassosbastion.fyi">BASSOs Bastion</a></h1>	
+        </div>
+        <div class="blog_head">
+            <h2>Blog</h2>
+            <p>This is my blog!</p>
+        </div>
+        {% block content%}
+        {% endblock %}
 
-    </head>    
-	<h1><a href="https://bassosbastion.fyi">BASSOs Bastion</a></h1>	
-	<h2>Blog</h2>
-    {% block content%}
-    {% endblock %}
-
+    </body> 
 </html>
