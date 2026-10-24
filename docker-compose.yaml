@@ -5,7 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     ports: 
-      - 80:80    
+      - 80:80
+    volumes:
+      - image_folder:/data/images
   backend:
     build: 
       context: ./fastapi_backend
@@ -34,3 +36,9 @@ volumes:
       type: none
       o: bind
       device: ${USER_DB_PATH} # must be the absolute host path and already exist
+  image_folder:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${IMAGE_STORE_PATH}
