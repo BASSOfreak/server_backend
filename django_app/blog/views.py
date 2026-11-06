@@ -3,7 +3,7 @@ from .models import Post
 from django.shortcuts import render, get_object_or_404
 
 def blog_home(request):
-    posts = Post.objects.order_by("created_date")
+    posts = Post.objects.order_by("-created_date")
     return render(request, 'blog/blog_home.html', {"posts": posts})
 
 def blog_entry(request, pk):
