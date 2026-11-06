@@ -42,6 +42,17 @@ figcaption {
   transform: scale(1.05);
 }
 
+.blog_time {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  font-size: smaller;
+}
+
+.blog_title {
+  margin-bottom: 0px;
+}
+
 a:link {
   color: red;
 }
